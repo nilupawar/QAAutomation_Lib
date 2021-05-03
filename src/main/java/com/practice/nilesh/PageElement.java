@@ -5,6 +5,9 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Collections;
+import java.util.List;
+
 
 /*
  *  author : Nilesh Pawar
@@ -16,10 +19,12 @@ public class PageElement {
     private PageFrame pageFrame;
     private String testData;
     private RemoteWebDriver driver;
+    private ElementType elementType;
 
     private static final Logger logger = LoggerFactory.getLogger(PageElement.class);
 
-    public PageElement(String name, LocatorType locatorType, String locatorValue, PageFrame pageFrame, String testData) {
+    public PageElement(ElementType elementType, String name, LocatorType locatorType, String locatorValue, PageFrame pageFrame, String testData) {
+        this.elementType = elementType;
         this.name = name;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
@@ -27,17 +32,27 @@ public class PageElement {
         this.testData = testData;
     }
 
-    public PageElement(String name, LocatorType locatorType, String locatorValue, PageFrame pageFrame) {
+    public PageElement(ElementType elementType, String name, LocatorType locatorType, String locatorValue, PageFrame pageFrame) {
+        this.elementType = elementType;
         this.name = name;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
         this.pageFrame = pageFrame;
     }
 
-    public PageElement(String name, LocatorType locatorType, String locatorValue) {
+    public PageElement(ElementType elementType, String name, LocatorType locatorType, String locatorValue) {
+        this.elementType = elementType;
         this.name = name;
         this.locatorType = locatorType;
         this.locatorValue = locatorValue;
+    }
+
+    public PageElement(ElementType elementType, String name, LocatorType locatorType, String locatorValue, String testData) {
+        this.elementType = elementType;
+        this.name = name;
+        this.locatorType = locatorType;
+        this.locatorValue = locatorValue;
+        this.testData = testData;
     }
 
     private void switchToFrame() {
@@ -53,8 +68,41 @@ public class PageElement {
                 case LOCATOR:
                     driver.switchTo().frame(pageFrame.getFrameLocator());
                     break;
+                default:
+                    logger.error("Invalid choice for frame identification type '{}'", pageFrame.getIdentificationType());
+                    break;
             }
         }
+    }
+
+    /*
+     *
+     * */
+    private List<WebElement> getWebElements() {
+        this.switchToFrame();
+        switch (this.locatorType) {
+            case XPATH:
+                return driver.findElementsByXPath(this.locatorValue);
+            case CSS:
+                return driver.findElementsByCssSelector(this.locatorValue);
+            case ID:
+                return driver.findElementsById(this.locatorValue);
+            case NAME:
+                return driver.findElementsByName(this.locatorValue);
+            case LINK_TEXT:
+                return driver.findElementsByLinkText(this.locatorValue);
+            case PARTIAL_LINK_TEXT:
+                return driver.findElementsByPartialLinkText(this.locatorValue);
+            case CLASS_NAME:
+                return driver.findElementsByClassName(this.locatorValue);
+            case TAG_NAME:
+                return driver.findElementsByTagName(this.locatorValue);
+            default:
+                logger.error("Invalid choice for locator type '{}'", locatorType);
+                break;
+
+        }
+        return Collections.emptyList();
     }
 
     /*
@@ -79,55 +127,72 @@ public class PageElement {
                 return driver.findElementByClassName(this.locatorValue);
             case TAG_NAME:
                 return driver.findElementByTagName(this.locatorValue);
+            default:
+                logger.error("Invalid choice for locator type '{}'", locatorType);
+                break;
 
         }
         return null;
+    }
+
+    public WebElement getObject() {
+        return getWebElement();
+    }
+
+    public int getObjectsCount() {
+        return getWebElements().size();
+    }
+
+    public List<WebElement> getObjects() {
+        return getWebElements();
     }
 
     /*
      *
      * */
     public void enterValue() {
-        logger.debug("Trying to enter value '{}' in element '{}' of type '{}'", testData, name, locatorType);
-
-        WebElement webElement = getWebElement();
-        assert webElement != null;
-        webElement.sendKeys(testData);
-
-        logger.info("Entered value '{}' in element '{}' of type '{}'", testData, name, locatorType);
+        putValue(testData, false);
     }
 
-    /*
-     *
-     * */
     public void enterValue(boolean isPassword) {
-
+        putValue(testData, isPassword);
     }
 
-    /*
-     *
-     * */
     public void enterValue(String value, boolean isPassword) {
-
+        putValue(value, isPassword);
     }
+
 
     /*
      *
      * */
     public void click() {
-        logger.debug("Trying to click on element '{}' of type '{}' ", name, locatorType);
+        logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
         webElement.click();
-        logger.info("Clicked element '{}' of type '{}'", name, locatorType);
+        logger.info("Clicked element '{}' of type '{}'", name, elementType);
     }
 
+    /*
+     *
+     * */
     public void doubleClick() {
-        logger.debug("Trying to double click on element '{}' of type '{}' ", name, locatorType);
+        logger.debug("Trying to double click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
         //TODO - Perform Double click operation
-        logger.info("Double clicked element '{}' of type '{}'", name, locatorType);
+        logger.info("Double clicked element '{}' of type '{}'", name, elementType);
     }
 
+    /*
+     *
+     * */
+    private void putValue(String dataValue, boolean isPassword) {
+        logger.debug("Trying to enter value '{}' in element '{}' of type '{}'", isPassword ? "*******" : dataValue, name, elementType);
+        WebElement webElement = getWebElement();
+        assert webElement != null;
+        webElement.sendKeys(dataValue);
+        logger.info("Entered value '{}' in element '{}' of type '{}'", isPassword ? "*******" : dataValue, name, elementType);
+    }
 }

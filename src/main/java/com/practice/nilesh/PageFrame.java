@@ -33,7 +33,7 @@ public class PageFrame {
 
     private void validateLocatorType(FrameIdentificationType identificationType) {
         if (this.identificationType != identificationType) {
-            logger.error("Write error message and throw error/exception that invalid method called and currently set locator is of type");
+            logger.error("Write error message and throw error/exception that invalid method called and currently set locator is of type {}", this.identificationType);
         }
     }
 

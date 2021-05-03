@@ -5,31 +5,34 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import java.net.URL;
 
 /*
-*  author : Nilesh Pawar
-* */
+ *  author : Nilesh Pawar
+ * */
 public class BasePage {
     RemoteWebDriver driver;
 
-    public BasePage(RemoteWebDriver driver) {
+    protected BasePage(RemoteWebDriver driver) {
         this.driver = driver;
     }
 
-    public void navigateTo(URL url) {
+    protected void navigateTo(URL url) {
     }
 
-    public void takeScreenshot() {
+    protected void takeScreenshot() {
     }
 
-    public void maximise() {
+    protected void maximise() {
     }
 
-    public void closeAndQuitBrowser() {
+    protected void closeAndQuitBrowser() {
     }
 
-    public void closeBrowserWindow() {
+    protected void closeBrowserWindow() {
     }
 
-    public String getPageTitle() {
+    protected void getAlertBoxText() {
+    }
+
+    protected String getPageTitle() {
         return null;
     }
 }
