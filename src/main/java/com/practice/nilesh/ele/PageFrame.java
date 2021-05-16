@@ -1,5 +1,6 @@
-package com.practice.nilesh;
+package com.practice.nilesh.ele;
 
+import com.practice.nilesh.types.FrameIdentificationType;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

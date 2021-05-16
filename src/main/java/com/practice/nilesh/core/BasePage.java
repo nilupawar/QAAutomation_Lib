@@ -1,16 +1,16 @@
-package com.practice.nilesh;
+package com.practice.nilesh.core;
 
-import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.WebDriver;
 
 import java.net.URL;
 
 /*
  *  author : Nilesh Pawar
  * */
-public class BasePage {
-    RemoteWebDriver driver;
+public abstract class BasePage {
+    WebDriver driver;
 
-    protected BasePage(RemoteWebDriver driver) {
+    protected BasePage(WebDriver driver) {
         this.driver = driver;
     }
 

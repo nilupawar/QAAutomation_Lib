@@ -1,10 +1,10 @@
-package com.practice.nilesh;
+package com.practice.nilesh.util;
 
 import org.openqa.selenium.WebDriver;
 
-public class DriverUtil {
+class DriverUtil {
 
-    private DriverUtil(){
+    public DriverUtil(){
     }
 
     public WebDriver getDriverInstance(){

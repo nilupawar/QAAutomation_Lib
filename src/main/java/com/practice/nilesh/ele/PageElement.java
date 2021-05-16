@@ -1,13 +1,15 @@
-package com.practice.nilesh;
+package com.practice.nilesh.ele;
 
+import com.practice.nilesh.types.ElementType;
+import com.practice.nilesh.types.LocatorType;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Collections;
 import java.util.List;
-
 
 /*
  *  author : Nilesh Pawar
@@ -18,7 +20,7 @@ public class PageElement {
     private String locatorValue;
     private PageFrame pageFrame;
     private String testData;
-    private RemoteWebDriver driver;
+    private WebDriver driver;
     private ElementType elementType;
 
     private static final Logger logger = LoggerFactory.getLogger(PageElement.class);
@@ -82,21 +84,21 @@ public class PageElement {
         this.switchToFrame();
         switch (this.locatorType) {
             case XPATH:
-                return driver.findElementsByXPath(this.locatorValue);
+                return driver.findElements(By.xpath(this.locatorValue));
             case CSS:
-                return driver.findElementsByCssSelector(this.locatorValue);
+                return driver.findElements(By.cssSelector(this.locatorValue));
             case ID:
-                return driver.findElementsById(this.locatorValue);
+                return driver.findElements(By.id(this.locatorValue));
             case NAME:
-                return driver.findElementsByName(this.locatorValue);
+                return driver.findElements(By.name(this.locatorValue));
             case LINK_TEXT:
-                return driver.findElementsByLinkText(this.locatorValue);
+                return driver.findElements(By.linkText(this.locatorValue));
             case PARTIAL_LINK_TEXT:
-                return driver.findElementsByPartialLinkText(this.locatorValue);
+                return driver.findElements(By.partialLinkText(this.locatorValue));
             case CLASS_NAME:
-                return driver.findElementsByClassName(this.locatorValue);
+                return driver.findElements(By.className(this.locatorValue));
             case TAG_NAME:
-                return driver.findElementsByTagName(this.locatorValue);
+                return driver.findElements(By.tagName(this.locatorValue));
             default:
                 logger.error("Invalid choice for locator type '{}'", locatorType);
                 break;
@@ -112,25 +114,24 @@ public class PageElement {
         this.switchToFrame();
         switch (this.locatorType) {
             case XPATH:
-                return driver.findElementByXPath(this.locatorValue);
+                return driver.findElement(By.xpath(this.locatorValue));
             case CSS:
-                return driver.findElementByCssSelector(this.locatorValue);
+                return driver.findElement(By.cssSelector(this.locatorValue));
             case ID:
-                return driver.findElementById(this.locatorValue);
+                return driver.findElement(By.id(this.locatorValue));
             case NAME:
-                return driver.findElementByName(this.locatorValue);
+                return driver.findElement(By.name(this.locatorValue));
             case LINK_TEXT:
-                return driver.findElementByLinkText(this.locatorValue);
+                return driver.findElement(By.linkText(this.locatorValue));
             case PARTIAL_LINK_TEXT:
-                return driver.findElementByPartialLinkText(this.locatorValue);
+                return driver.findElement(By.partialLinkText(this.locatorValue));
             case CLASS_NAME:
-                return driver.findElementByClassName(this.locatorValue);
+                return driver.findElement(By.className(this.locatorValue));
             case TAG_NAME:
-                return driver.findElementByTagName(this.locatorValue);
+                return driver.findElement(By.tagName(this.locatorValue));
             default:
                 logger.error("Invalid choice for locator type '{}'", locatorType);
                 break;
-
         }
         return null;
     }
@@ -156,6 +157,10 @@ public class PageElement {
 
     public void enterValue(boolean isPassword) {
         putValue(testData, isPassword);
+    }
+
+    public void enterPassword() {
+        putValue(testData, true);
     }
 
     public void enterValue(String value, boolean isPassword) {
