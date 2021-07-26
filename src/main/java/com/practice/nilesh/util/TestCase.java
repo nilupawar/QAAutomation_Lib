@@ -8,13 +8,21 @@ import java.util.List;
 
 public class TestCase {
     private List<String> scenarioIDs;
-    DriverUtil driverUtil = new DriverUtil();
-    WebDriver driver = driverUtil.getDriverInstance();
+    private DriverUtil driverUtil;
+    private WebDriver driver;
+
+    public TestCase() {
+        driverUtil = new DriverUtil();
+    }
 
     public void setCucumberScenarioTags(Scenario scenario) {
         scenarioIDs = new ArrayList<>(scenario.getSourceTagNames());
     }
 
     public void setJunitScenarioTags() {
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }

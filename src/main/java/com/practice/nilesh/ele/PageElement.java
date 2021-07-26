@@ -15,13 +15,13 @@ import java.util.List;
  *  author : Nilesh Pawar
  * */
 public class PageElement {
-    private String name;
-    private LocatorType locatorType;
-    private String locatorValue;
+    private final String name;
+    private final LocatorType locatorType;
+    private final String locatorValue;
     private PageFrame pageFrame;
     private String testData;
     private WebDriver driver;
-    private ElementType elementType;
+    private final ElementType elementType;
 
     private static final Logger logger = LoggerFactory.getLogger(PageElement.class);
 

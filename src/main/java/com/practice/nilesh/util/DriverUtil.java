@@ -4,10 +4,10 @@ import org.openqa.selenium.WebDriver;
 
 class DriverUtil {
 
-    public DriverUtil(){
+    public DriverUtil() {
     }
 
-    public WebDriver getDriverInstance(){
+    public WebDriver getDriverInstance(BrowserName browserName) {
         return null;
     }
 }
