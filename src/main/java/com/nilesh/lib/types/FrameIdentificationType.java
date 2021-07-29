@@ -1,4 +1,4 @@
-package com.practice.nilesh.types;
+package com.nilesh.lib.types;
 
 /*
  *  author : Nilesh Pawar
