@@ -15,9 +15,9 @@ import java.net.URL;
  * */
 public abstract class BasePage {
     protected WebDriver driver;
-    private TestScenario testScenario;
-    private String pageTitle;
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
+    private final TestScenario testScenario;
+    private final String pageTitle;
+    protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     protected BasePage(TestScenario testScenario, String pageTitle) {
         this.testScenario = testScenario;

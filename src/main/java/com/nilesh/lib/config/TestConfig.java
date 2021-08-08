@@ -12,7 +12,7 @@ import java.util.Properties;
  * */
 public final class TestConfig {
     private static TestConfig testConfig;
-    private Properties properties = new Properties();
+    private final Properties properties = new Properties();
     private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
 
     private TestConfig() {

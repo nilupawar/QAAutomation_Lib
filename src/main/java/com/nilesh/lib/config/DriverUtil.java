@@ -20,7 +20,7 @@ final class DriverUtil {
     private WebDriver driver;
     private BrowserName browserName;
     private Capabilities capabilities;
-    private static final Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);
 
     public DriverUtil() {
         initialiseDriver();
@@ -28,7 +28,6 @@ final class DriverUtil {
     }
 
     private void initialiseDriver() {
-        //TODO - Improve this after workday assignment for your framework library to handle remote/grid execution
         if (TestConfig.getConfig("browserName").equalsIgnoreCase("CHROME")) {
             browserName = BrowserName.CHROME;
             WebDriverManager.chromedriver().setup();
@@ -44,12 +43,16 @@ final class DriverUtil {
         }
         if (Boolean.getBoolean("maximiseBrowserWhenOpen")) {
             this.driver.manage().window().maximize();
+            LOGGER.debug("Browser maximised");
         }
     }
 
     private void setTimeOut() {
-        driver.manage().timeouts().pageLoadTimeout(Utility.parseIntTestConfig("pageLoadTime") * 1000L, TimeUnit.MILLISECONDS);
-        driver.manage().timeouts().implicitlyWait(Utility.parseIntTestConfig("objectLoadTime") * 1000L, TimeUnit.MILLISECONDS);
+        int pageLoadTime = Utility.parseIntTestConfig("pageLoadTime");
+        int objectLoadTime = Utility.parseIntTestConfig("objectLoadTime");
+        driver.manage().timeouts().pageLoadTimeout(pageLoadTime * 1000L, TimeUnit.MILLISECONDS);
+        driver.manage().timeouts().implicitlyWait(objectLoadTime * 1000L, TimeUnit.MILLISECONDS);
+        LOGGER.info("Page load time is set to '{}', and object load time is set to '{}'", pageLoadTime, objectLoadTime);
     }
 
 

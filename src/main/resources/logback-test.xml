@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration debug="true">
     <property name="LOG_HOME" value="." />
-    <property name="LOG_FILE" value="target/assignment.log" />
+    <property name="LOG_FILE" value="target/lib_logs.log" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -18,7 +18,6 @@
     </appender>
 
     <logger name="ch.qos.logback.*" level="ERROR"/>
-    <logger name="com.assignment" level="${suite.log.level}"/>
 
     <root level="ERROR">
         <appender-ref ref="STDOUT" />

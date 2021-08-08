@@ -17,9 +17,9 @@ import java.io.IOException;
  * */
 public final class TestScenario {
     private Scenario scenario;
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestScenario.class);
+    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 
     public TestScenario() {
         this.driver = new DriverUtil().getDriverInstance();
@@ -46,6 +46,6 @@ public final class TestScenario {
     }
 
     public void cucumberResultLog(String logMessage) {
-        scenario.write(logMessage);
+        scenario.log(logMessage);
     }
 }

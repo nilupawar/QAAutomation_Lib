@@ -2,15 +2,16 @@ package com.nilesh.lib.util;
 
 import com.nilesh.lib.config.TestConfig;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class Utility {
     public static <T> boolean isSorted(List<T> items, SortType sortType) {
-        List<T> sorted = new ArrayList<T>(items);
+        List<T> sorted = new ArrayList<>(items);
         if (sortType == SortType.DESC) {
             sorted.sort(Collections.reverseOrder());
         }
@@ -32,10 +33,4 @@ public class Utility {
         return parseInt(TestConfig.getConfig(intString));
     }
 
-    public static void main(String[] args) throws ParseException {
-        String string = "2021-07-28 19:46";
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.ENGLISH);
-        Date date = format.parse(string);
-        System.out.println(date);
-    }
 }
