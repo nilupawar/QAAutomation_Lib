@@ -20,10 +20,11 @@
                 <dependency>
                     <groupId>org.practice.nilesh</groupId>
                     <artifactId>QAAutomation_Lib</artifactId>
-                    <version>1.0-SNAPSHOT</version>
+                    <version>1.0.0-SNAPSHOT</version>             // Keep eye on version that you need
                 </dependency> 
 
-    
+    4. You must include package path (com.nilesh.lib.core) of "CucumberHooks.java" in list of glues in Runner class of your project.
+  
 
     - Refer to project "https://github.com/nilupawar/QAAutomation_SampleLibTest.git" to know how to use this library   
     
