@@ -3,7 +3,11 @@ package com.nilesh.lib.core;
 
 import com.nilesh.lib.config.TestConfig;
 import com.nilesh.lib.config.TestScenario;
+import com.nilesh.lib.util.Utility;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +21,16 @@ public abstract class BasePage {
     protected WebDriver driver;
     private final TestScenario testScenario;
     private final String pageTitle;
-    protected final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     protected BasePage(TestScenario testScenario, String pageTitle) {
         this.testScenario = testScenario;
         this.driver = testScenario.getDriver();
         this.pageTitle = pageTitle;
+    }
+
+    public TestScenario getTestScenario() {
+        return testScenario;
     }
 
     public void navigateTo(URL url) {
@@ -37,19 +45,31 @@ public abstract class BasePage {
         navigateTo(new URL(TestConfig.getConfig("application_url")));
     }
 
-    protected void takeScreenshot() {
-    }
-
     protected void maximise() {
+        driver.manage().window().maximize();
     }
 
     protected void closeAndQuitBrowser() {
+        driver.close();
+        driver.quit();
     }
 
     protected void closeBrowserWindow() {
+        driver.close();
+    }
+
+    // TODO - Implement this
+    protected void closeBrowserWindowByIndex(int index) {
+    }
+
+    //TODO - Implement this
+    protected void closeLastBrowserWindow() {
     }
 
     protected void getAlertBoxText() {
+        Wait<WebDriver> wait = new WebDriverWait(driver, Utility.parseIntTestConfig("object.wait.time.macro"));
+        wait.until(ExpectedConditions.alertIsPresent());
+        driver.switchTo().alert().getText();
     }
 
     protected String getPageTitle() {
@@ -60,10 +80,10 @@ public abstract class BasePage {
         String title = driver.getTitle();
         if (!title.contains(pageTitle)) {
             System.out.println("Page title : actual " + title + ", expected {" + pageTitle + "}, Checks for contains");
-            LOGGER.error("Page title : actual '{}' contains/equals expected '{}', Checks for contains", title, pageTitle);
+            logger.error("Page title : actual '{}' contains/equals expected '{}', Checks for contains", title, pageTitle);
             return false;
         }
-        LOGGER.info("Page title : actual '{}' contains/equals expected '{}', Checks for contains", title, pageTitle);
+        logger.info("Page title : actual '{}' contains/equals expected '{}', Checks for contains", title, pageTitle);
         return true;
     }
 

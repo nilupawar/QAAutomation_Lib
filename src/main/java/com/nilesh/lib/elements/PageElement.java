@@ -26,7 +26,7 @@ public class PageElement {
     private final WebDriver driver;
     private ElementType elementType;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageElement.class);
+    private final Logger logger = LoggerFactory.getLogger(PageElement.class);
 
     public PageElement(WebDriver driver, ElementType elementType, String name, LocatorType locatorType, String locatorValue, PageFrame pageFrame, String testData) {
         this.driver = driver;
@@ -78,7 +78,7 @@ public class PageElement {
                     driver.switchTo().frame(pageFrame.getFrameLocator());
                     break;
                 default:
-                    LOGGER.error("Invalid choice for frame identification type '{}'", pageFrame.getIdentificationType());
+                    logger.error("Invalid choice for frame identification type '{}'", pageFrame.getIdentificationType());
                     throw new IllegalArgumentException("\"Invalid choice for frame identification type '" + pageFrame.getIdentificationType() + "'");
             }
         }
@@ -107,7 +107,7 @@ public class PageElement {
             case TAG_NAME:
                 return driver.findElements(By.tagName(this.locatorValue));
             default:
-                LOGGER.error("Invalid choice for locator type '{}'", locatorType);
+                logger.error("Invalid choice for locator type '{}'", locatorType);
                 throw new IllegalArgumentException("Invalid choice for locator type '" + locatorType + "'");
         }
     }
@@ -135,7 +135,7 @@ public class PageElement {
             case TAG_NAME:
                 return driver.findElement(By.tagName(this.locatorValue));
             default:
-                LOGGER.error("Invalid choice for locator type '{}'", locatorType);
+                logger.error("Invalid choice for locator type '{}'", locatorType);
                 throw new IllegalArgumentException("Invalid choice for locator type '" + locatorType + "'");
         }
     }
@@ -176,21 +176,21 @@ public class PageElement {
      *
      * */
     public void selectByVisibleText(String value) {
-        LOGGER.debug("Trying to select value '{}' of element '{}' ", value, name);
+        logger.debug("Trying to select value '{}' of element '{}' ", value, name);
         WebElement webElement = getWebElement();
         assert webElement != null;
         Select select = new Select(webElement);
         select.selectByVisibleText(value);
-        LOGGER.info("Selected value '{}' of element '{}' ", value, name);
+        logger.info("Selected value '{}' of element '{}' ", value, name);
     }
 
     public void selectByValueProperty(String value) {
-        LOGGER.debug("Trying to select value '{}' of element '{}' ", value, name);
+        logger.debug("Trying to select value '{}' of element '{}' ", value, name);
         WebElement webElement = getWebElement();
         assert webElement != null;
         Select select = new Select(webElement);
         select.selectByValue(value);
-        LOGGER.info("Selected value '{}' of element '{}' ", value, name);
+        logger.info("Selected value '{}' of element '{}' ", value, name);
     }
 
 
@@ -198,47 +198,47 @@ public class PageElement {
      *
      * */
     public void clickIfPresent() {
-        LOGGER.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
+        logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         List<WebElement> webElement = getWebElements();
         if (webElement.size() > 0) {
             webElement.get(0).click();
-            LOGGER.info("Clicked element '{}' of type '{}'", name, elementType);
+            logger.info("Clicked element '{}' of type '{}'", name, elementType);
             return;
         }
-        LOGGER.info("Skipped to click element '{}' of type '{}', element was not present", name, elementType);
+        logger.info("Skipped to click element '{}' of type '{}', element was not present", name, elementType);
     }
 
     /*
      *
      * */
     public void click() {
-        LOGGER.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
+        logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
         webElement.click();
-        LOGGER.info("Clicked element '{}' of type '{}'", name, elementType);
+        logger.info("Clicked element '{}' of type '{}'", name, elementType);
     }
 
     /*
      *
      * */
     public void doubleClick() {
-        LOGGER.debug("Trying to double click on element '{}' of type '{}' ", name, elementType);
+        logger.debug("Trying to double click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
         //TODO - Perform Double click operation
-        LOGGER.info("Double clicked element '{}' of type '{}'", name, elementType);
+        logger.info("Double clicked element '{}' of type '{}'", name, elementType);
     }
 
     /*
      *
      * */
     private void putValue(String dataValue, boolean isSecret) {
-        LOGGER.debug("Trying to enter value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
+        logger.debug("Trying to enter value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
         webElement.sendKeys(dataValue);
-        LOGGER.info("Entered value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
+        logger.info("Entered value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
     }
 
     public void setName(String name) {

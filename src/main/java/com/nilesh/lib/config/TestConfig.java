@@ -13,7 +13,7 @@ import java.util.Properties;
 public final class TestConfig {
     private static TestConfig testConfig;
     private final Properties properties = new Properties();
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestConfig.class);
+    private final Logger logger = LoggerFactory.getLogger(TestConfig.class);
 
     private TestConfig() {
         try (InputStream input = TestConfig.class.getClassLoader().getResourceAsStream("TestConfig.properties")) {

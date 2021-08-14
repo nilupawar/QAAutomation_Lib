@@ -15,7 +15,7 @@ public class PageFrame {
     private WebElement webElement;
     private FrameIdentificationType identificationType;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PageFrame.class);
+    private final Logger logger = LoggerFactory.getLogger(PageFrame.class);
 
     public PageFrame(String locator) {
         this.locator = locator;
@@ -34,7 +34,7 @@ public class PageFrame {
 
     private void validateLocatorType(FrameIdentificationType identificationType) {
         if (this.identificationType != identificationType) {
-            LOGGER.error("Write error message and throw error/exception that invalid method called and currently set locator is of type {}", this.identificationType);
+            logger.error("Write error message and throw error/exception that invalid method called and currently set locator is of type {}", this.identificationType);
         }
     }
 

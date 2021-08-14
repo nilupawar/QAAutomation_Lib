@@ -20,7 +20,7 @@ final class DriverUtil {
     private WebDriver driver;
     private BrowserName browserName;
     private Capabilities capabilities;
-    private final Logger LOGGER = LoggerFactory.getLogger(DriverUtil.class);
+    private final Logger logger = LoggerFactory.getLogger(DriverUtil.class);
 
     public DriverUtil() {
         initialiseDriver();
@@ -43,7 +43,7 @@ final class DriverUtil {
         }
         if (Boolean.getBoolean("maximiseBrowserWhenOpen")) {
             this.driver.manage().window().maximize();
-            LOGGER.debug("Browser maximised");
+            logger.debug("Browser maximised");
         }
     }
 
@@ -52,7 +52,7 @@ final class DriverUtil {
         int objectLoadTime = Utility.parseIntTestConfig("objectLoadTime");
         driver.manage().timeouts().pageLoadTimeout(pageLoadTime * 1000L, TimeUnit.MILLISECONDS);
         driver.manage().timeouts().implicitlyWait(objectLoadTime * 1000L, TimeUnit.MILLISECONDS);
-        LOGGER.info("Page load time is set to '{}', and object load time is set to '{}'", pageLoadTime, objectLoadTime);
+        logger.info("Page load time is set to '{}', and object load time is set to '{}'", pageLoadTime, objectLoadTime);
     }
 
 

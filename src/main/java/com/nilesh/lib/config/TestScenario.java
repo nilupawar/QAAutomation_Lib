@@ -1,5 +1,6 @@
 package com.nilesh.lib.config;
 
+import com.nilesh.lib.exception.FrameworkException;
 import com.nilesh.lib.util.Utility;
 import io.cucumber.java.Scenario;
 import org.apache.commons.io.FileUtils;
@@ -19,7 +20,7 @@ public final class TestScenario {
     private Scenario scenario;
     private final WebDriver driver;
 
-    private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public TestScenario() {
         this.driver = new DriverUtil().getDriverInstance();
@@ -38,14 +39,24 @@ public final class TestScenario {
         driver.quit();
     }
 
-    public File takeScreenShot() throws IOException {
+    private File takeScreenShot() {
         File desFile = new File("./target/" + Utility.getScreenshotFileName());
         File file = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(file, desFile);
+        try {
+            FileUtils.copyFile(file, desFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new FrameworkException("Could not take screenshot : " + e.getMessage());
+        }
         return desFile;
     }
 
     public void cucumberResultLog(String logMessage) {
         scenario.log(logMessage);
+    }
+
+    public void attachScreenShotToCucumberResult() {
+        File screenshotFile = takeScreenShot();
+        scenario.attach(screenshotFile.getPath().getBytes(), "DEFAULT", "DEFAULT");
     }
 }
