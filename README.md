@@ -26,6 +26,21 @@
     4. You must include package path (com.nilesh.lib.core) of "CucumberHooks.java" in list of glues in Runner class of your project.
   
 
-    - Refer to project "https://github.com/nilupawar/QAAutomation_SampleLibTest.git" to know how to use this library   
+    - Refer to project "https://github.com/nilupawar/QAAutomation_SampleLibTest.git" to know how to use this library 
+
+
+
+### Features to be implemented
+    1. Validate TestConfig.properties files when project start
+    -   This will make sure all required properties are present in TestConfig.properties file.Properties defined in TestConfig.properties will be overwritten by project specific TestConfig.properties file
+    
+    2. Implement locator definition in textfile ( yaml perfered )
+
+    3. Annotation based PageElement object creation
+
+    4. TestData connector to connect to multiple type of data provider
+
+    
+
     
         
