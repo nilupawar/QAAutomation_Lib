@@ -1,5 +1,6 @@
-package com.practice.nilesh;
+package com.nilesh.lib.elements;
 
+import com.nilesh.lib.types.FrameIdentificationType;
 import org.openqa.selenium.WebElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,7 @@ public class PageFrame {
     private WebElement webElement;
     private FrameIdentificationType identificationType;
 
-    private static final Logger logger = LoggerFactory.getLogger(PageFrame.class);
+    private final Logger logger = LoggerFactory.getLogger(PageFrame.class);
 
     public PageFrame(String locator) {
         this.locator = locator;
@@ -33,7 +34,7 @@ public class PageFrame {
 
     private void validateLocatorType(FrameIdentificationType identificationType) {
         if (this.identificationType != identificationType) {
-            logger.error("Write error message and throw error/exception that invalid method called and currently set locator is of type");
+            logger.error("Write error message and throw error/exception that invalid method called and currently set locator is of type {}", this.identificationType);
         }
     }
 
