@@ -35,7 +35,7 @@ public final class Utility {
     }
 
     public static int parseIntTestConfig(String intString) {
-        return parseInt(TestConfig.getConfig(intString));
+        return parseInt(TestConfig.getConfig(intString.trim()));
     }
 
 }
