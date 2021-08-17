@@ -1,6 +1,6 @@
-#Building automation framework Library
+# Building automation framework Library
 
-##How to use this lib - In local
+## How to use this lib - In local
 
     Prerequisite : must have following software installed
     -   Java/OpenJDK 11
@@ -51,12 +51,10 @@
                 - object.wait.time.macro
                 - object.wait.time.reliable
                 - object.wait.time.slow
-            
-                
-            
 
 ### Features to be implemented
-    1. Validate TestConfig.properties files when project start
+
+    1. DONE [17-Aug-2021] - Validate TestConfig.properties files when project start
     -   This will make sure all required properties are present in TestConfig.properties file.Properties defined in TestConfig.properties will be overwritten by project specific TestConfig.properties file
     
     2. Implement locator definition in textfile ( yaml perfered )

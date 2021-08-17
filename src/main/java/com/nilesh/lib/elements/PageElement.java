@@ -87,57 +87,38 @@ public class PageElement {
     /*
      *
      * */
-    private List<WebElement> getWebElements() {
-        this.switchToFrame();
+    private By getLocator() {
         switch (this.locatorType) {
             case XPATH:
-                return driver.findElements(By.xpath(this.locatorValue));
+                return By.xpath(this.locatorValue);
             case CSS:
-                return driver.findElements(By.cssSelector(this.locatorValue));
+                return By.cssSelector(this.locatorValue);
             case ID:
-                return driver.findElements(By.id(this.locatorValue));
+                return By.id(this.locatorValue);
             case NAME:
-                return driver.findElements(By.name(this.locatorValue));
+                return By.name(this.locatorValue);
             case LINK_TEXT:
-                return driver.findElements(By.linkText(this.locatorValue));
+                return By.linkText(this.locatorValue);
             case PARTIAL_LINK_TEXT:
-                return driver.findElements(By.partialLinkText(this.locatorValue));
+                return By.partialLinkText(this.locatorValue);
             case CLASS_NAME:
-                return driver.findElements(By.className(this.locatorValue));
+                return By.className(this.locatorValue);
             case TAG_NAME:
-                return driver.findElements(By.tagName(this.locatorValue));
+                return By.tagName(this.locatorValue);
             default:
                 logger.error("Invalid choice for locator type '{}'", locatorType);
                 throw new IllegalArgumentException("Invalid choice for locator type '" + locatorType + "'");
         }
     }
 
-    /*
-     *
-     * */
+    private List<WebElement> getWebElements() {
+        this.switchToFrame();
+        return driver.findElements(getLocator());
+    }
+
     private WebElement getWebElement() {
         this.switchToFrame();
-        switch (this.locatorType) {
-            case XPATH:
-                return driver.findElement(By.xpath(this.locatorValue));
-            case CSS:
-                return driver.findElement(By.cssSelector(this.locatorValue));
-            case ID:
-                return driver.findElement(By.id(this.locatorValue));
-            case NAME:
-                return driver.findElement(By.name(this.locatorValue));
-            case LINK_TEXT:
-                return driver.findElement(By.linkText(this.locatorValue));
-            case PARTIAL_LINK_TEXT:
-                return driver.findElement(By.partialLinkText(this.locatorValue));
-            case CLASS_NAME:
-                return driver.findElement(By.className(this.locatorValue));
-            case TAG_NAME:
-                return driver.findElement(By.tagName(this.locatorValue));
-            default:
-                logger.error("Invalid choice for locator type '{}'", locatorType);
-                throw new IllegalArgumentException("Invalid choice for locator type '" + locatorType + "'");
-        }
+        return driver.findElement(getLocator());
     }
 
     public WebElement getObject() {
@@ -200,7 +181,7 @@ public class PageElement {
     public void clickIfPresent() {
         logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         List<WebElement> webElement = getWebElements();
-        if (webElement.size() > 0) {
+        if (!webElement.isEmpty()) {
             webElement.get(0).click();
             logger.info("Clicked element '{}' of type '{}'", name, elementType);
             return;
