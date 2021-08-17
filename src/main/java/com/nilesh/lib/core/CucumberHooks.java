@@ -29,7 +29,6 @@ public class CucumberHooks {
         logger.info("Test execution completed for test having tags : {} ", scenario.getSourceTagNames());
         logger.info("Test Status : {} ", scenario.getStatus());
         logger.info("-------------------------------------------------------------------------------");
-
     }
 
     public CucumberHooks(TestScenario testScenario) {

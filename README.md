@@ -23,12 +23,37 @@
                     <version>1.0.0-SNAPSHOT</version>             // Keep eye on version that you need
                 </dependency> 
 
-    4. You must include package path (com.nilesh.lib.core) of "CucumberHooks.java" in list of glues in Runner class of your project.
+    4. Your junit running class must extend BaseJunitRunner class.
   
 
     - Refer to project "https://github.com/nilupawar/QAAutomation_SampleLibTest.git" to know how to use this library 
 
+## Test Configurations
 
+    Each test suite should have TestConfig.properties file in 'test -> resources' folder. ( Sample TestConfig.properties) file
+    is present in this library's resources folder
+
+    Following are the list of madatory properties which must be present and have a value assigned to it
+
+    
+    Following are the list of properties which are used for framework configuration. You can assign it them custom valid values
+    If you don't specify these properties in your TestConfig.properties file then default values set in TestConfig class will be used
+               
+                - application_url
+                - browserName    
+
+    NOTE : Below list will not be kept upto date, if you need to see the list of default properties refer to TestConfig class    
+           
+                - maximiseBrowserWhenOpen
+                - pageLoadTime
+                - objectLoadTime
+                - object.wait.time.micro
+                - object.wait.time.macro
+                - object.wait.time.reliable
+                - object.wait.time.slow
+            
+                
+            
 
 ### Features to be implemented
     1. Validate TestConfig.properties files when project start
