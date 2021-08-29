@@ -69,8 +69,4 @@ public final class TestConfig {
     public static String getConfig(String propertyName) {
         return getInstance().properties.getProperty(propertyName.trim());
     }
-
-    public void nonStaticMethod(){
-
-    }
 }
