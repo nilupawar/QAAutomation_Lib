@@ -2,9 +2,11 @@ package com.nilesh.lib.elements;
 
 import com.nilesh.lib.types.ElementType;
 import com.nilesh.lib.types.LocatorType;
+import com.nilesh.lib.util.Utility;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
@@ -140,8 +142,8 @@ public class PageElement {
         putValue(testData, false);
     }
 
-    public void enterValue(boolean isPassword) {
-        putValue(testData, isPassword);
+    public void enterValue(boolean isSecret) {
+        putValue(testData, isSecret);
     }
 
     public void enterPassword() {
@@ -182,6 +184,7 @@ public class PageElement {
         logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         List<WebElement> webElement = getWebElements();
         if (!webElement.isEmpty()) {
+            waitUntilClickable();
             webElement.get(0).click();
             logger.info("Clicked element '{}' of type '{}'", name, elementType);
             return;
@@ -196,6 +199,7 @@ public class PageElement {
         logger.debug("Trying to click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
+        waitUntilClickable();
         webElement.click();
         logger.info("Clicked element '{}' of type '{}'", name, elementType);
     }
@@ -207,20 +211,12 @@ public class PageElement {
         logger.debug("Trying to double click on element '{}' of type '{}' ", name, elementType);
         WebElement webElement = getWebElement();
         assert webElement != null;
-        //TODO - Perform Double click operation
+        waitUntilClickable();
+        Actions actions = new Actions(driver);
+        actions.doubleClick(webElement);
         logger.info("Double clicked element '{}' of type '{}'", name, elementType);
     }
 
-    /*
-     *
-     * */
-    private void putValue(String dataValue, boolean isSecret) {
-        logger.debug("Trying to enter value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
-        WebElement webElement = getWebElement();
-        assert webElement != null;
-        webElement.sendKeys(dataValue);
-        logger.info("Entered value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
-    }
 
     public void setName(String name) {
         this.name = name;
@@ -246,8 +242,34 @@ public class PageElement {
         this.elementType = elementType;
     }
 
-    public void waitUntilClickable(long maxTimeOutInSeconds) {
+    public void waitUntilClickable(short maxTimeOutInSeconds) {
         Wait<WebDriver> wait = new WebDriverWait(driver, maxTimeOutInSeconds);
         wait.until(ExpectedConditions.elementToBeClickable(this.getObject()));
     }
+
+    public void waitUntilVisible(short maxTimeOutInSeconds) {
+        Wait<WebDriver> wait = new WebDriverWait(driver, maxTimeOutInSeconds);
+        wait.until(ExpectedConditions.visibilityOf(this.getObject()));
+    }
+
+    /* ============================================ private methods ====================================================
+     *
+     * */
+    private void putValue(String dataValue, boolean isSecret) {
+        logger.debug("Trying to enter value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
+        WebElement webElement = getWebElement();
+        assert webElement != null;
+        webElement.sendKeys(dataValue);
+        logger.info("Entered value '{}' in element '{}' of type '{}'", isSecret ? "*******" : dataValue, name, elementType);
+    }
+
+
+    private void waitUntilVisible() {
+        waitUntilVisible(Utility.parseShortTestConfig("object.wait.time.reliable"));
+    }
+
+    private void waitUntilClickable() {
+        waitUntilClickable(Utility.parseShortTestConfig("object.wait.time.reliable"));
+    }
+
 }

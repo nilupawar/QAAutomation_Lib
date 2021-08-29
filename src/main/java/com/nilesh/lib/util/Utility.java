@@ -30,12 +30,13 @@ public final class Utility {
         return "Screenshot_" + new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + ".PNG";
     }
 
-    public static int parseInt(String intString) {
-        return Integer.parseInt(intString);
+    public static int parseIntTestConfig(String intString) {
+        return Integer.parseInt(TestConfig.getConfig(intString.trim()));
     }
 
-    public static int parseIntTestConfig(String intString) {
-        return parseInt(TestConfig.getConfig(intString.trim()));
+    public static short parseShortTestConfig(String intString) {
+        return Short.parseShort(TestConfig.getConfig(intString.trim()));
     }
+
 
 }

@@ -1,5 +1,6 @@
 package com.nilesh.lib.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -41,4 +42,20 @@ public class UtilityTest {
         Pattern pattern = Pattern.compile("^Screenshot_[0-9]{14}.PNG$");
         assertTrue("File name does not match defined pattern", pattern.matcher(screenshotFileName).matches());
     }
+
+    @Test
+    public void validTestConfigShortValue() {
+        String propName = "object.wait.time.macro";
+        short propValue = 10;
+        Assert.assertEquals(propValue, Utility.parseShortTestConfig(propName));
+    }
+
+    @Test
+    public void validTestConfigIntValue() {
+        String propName = "object.wait.time.macro";
+        int propValue = 10;
+        Assert.assertEquals(propValue, Utility.parseIntTestConfig(propName));
+    }
+
+
 }
