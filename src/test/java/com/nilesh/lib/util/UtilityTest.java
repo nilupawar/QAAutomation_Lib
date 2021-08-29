@@ -1,11 +1,7 @@
 package com.nilesh.lib.util;
 
-import com.nilesh.lib.config.TestConfig;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +10,6 @@ import java.util.regex.Pattern;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-//@RunWith(MockitoJUnitRunner.class)
 public class UtilityTest {
 
     @Test
